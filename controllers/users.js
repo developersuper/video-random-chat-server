@@ -1,6 +1,6 @@
 const User = require('../models/User.js');
 const signToken = require('../serverAuth.js').signToken;
-
+const currentUsers = require('../util/users');
 module.exports = {
 	// get a random user
 	getRandomUser: async (req, res) => {
@@ -45,6 +45,7 @@ module.exports = {
 			let user = await User.findOne({username: req.body.username});
 			console.log("login..", req.body, user);
 			if(user){
+				if(!currentUsers.check(user._id)){return res.json({success: false, message: "User alreay loged in."});}
 				if(user.password === req.body.password) {
 					const token = signToken(user)
 					user.save();

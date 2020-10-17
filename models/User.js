@@ -11,6 +11,7 @@ const
 		aboutMe: {type: String},
 		ip: { type: String },
 		status: { type: String },
+		fitler: {type: mongoose.Schema.Types.Mixed}
 	})
 
 // adds a method to a user document object to create a hashed password
